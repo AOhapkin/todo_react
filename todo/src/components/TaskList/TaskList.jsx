@@ -1,5 +1,6 @@
 import React from "react";
 import Task from "../Task";
+import "./TaskList.css";
 
 function TaskList() {
   return (
