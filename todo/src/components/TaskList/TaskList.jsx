@@ -2,21 +2,22 @@ import React from "react";
 import Task from "../Task";
 import "./TaskList.css";
 
-function TaskList() {
+function TaskList(props) {
+  console.log(props.tasks)
+  const todoData = props.tasks;
+  // console.log(props.tasks)
+  const elements = todoData.map((item) => (
+    <Task
+      taskId={item.id}
+      active={item.active}
+      description={item.description}
+      created={item.created}
+      key={item.id}
+    />
+  ));
   return (
-    <ul class="todo-list">
-      <li class="completed">
-        <Task description="Completed task" created="created 17 seconds ago" />
-      </li>
-      <li class="editing">
-        <Task description="Editing task" created="created 17 seconds ago" />
-        <input type="text" className="edit" value="Editing task" />
-      </li>
-      <li>
-        <Task description="Active task" created="created 17 seconds ago" />
-      </li>
-    </ul>
+    <ul className="todo-list">{elements}</ul>
   );
 }
 
-export default TaskList;
+export default TaskList; 
