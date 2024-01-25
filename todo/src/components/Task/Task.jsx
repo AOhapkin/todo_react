@@ -8,7 +8,7 @@ export default class Task extends Component {
   }
 
   render() {
-    const { changeTodoItemState, todo } = this.props;
+    const { changeTodoItemState, deleteTodoItem, todo } = this.props;
     const {description, id, active, created} = todo;
     let currentClassName = 'active';
 
@@ -30,7 +30,7 @@ export default class Task extends Component {
             <span className="created">{created}</span>
           </label>
           <button className="icon icon-edit"></button>
-          <button className="icon icon-destroy"></button>
+          <button className="icon icon-destroy" onClick={() => deleteTodoItem(id)}></button>
         </div>
       </li>
     )

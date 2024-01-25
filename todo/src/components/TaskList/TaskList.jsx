@@ -4,12 +4,13 @@ import "./TaskList.css";
 
 function TaskList(props) {
   console.log(props.tasks)
-  const {tasks, changeTodoItemState} = props;
+  const {tasks, changeTodoItemState, deleteTodoItem} = props;
   const elements = tasks.map((item) => (
     <Task
       key={item.id}
       todo={item}
       changeTodoItemState={changeTodoItemState}
+      deleteTodoItem={deleteTodoItem}
     />
   ));
   return (

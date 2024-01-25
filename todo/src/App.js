@@ -28,6 +28,14 @@ export default class App extends Component {
     }));
   }
 
+  deleteTodoItem(id) {
+    this.setState((state) => ({
+      todoData: state.todoData.filter((todoItem) => {
+        return todoItem.id !== id;
+      })
+    }));
+  }
+
   render() {
     console.log(this.state.todoData);
     return (
@@ -37,6 +45,7 @@ export default class App extends Component {
           <TaskList 
             tasks={this.state.todoData}
             changeTodoItemState={this.changeTodoItemState.bind(this)}
+            deleteTodoItem={this.deleteTodoItem.bind(this)}
           />
           <Footer />
         </section>
