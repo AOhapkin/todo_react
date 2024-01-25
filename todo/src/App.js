@@ -36,6 +36,14 @@ export default class App extends Component {
     }));
   }
 
+  deleteCompletedTodos() {
+    this.setState((state) => ({
+      todoData: state.todoData.filter((todoItem) => {
+        return todoItem.active;
+      })
+    }));
+  }
+
   render() {
     console.log(this.state.todoData);
     return (
@@ -47,7 +55,9 @@ export default class App extends Component {
             changeTodoItemState={this.changeTodoItemState.bind(this)}
             deleteTodoItem={this.deleteTodoItem.bind(this)}
           />
-          <Footer />
+          <Footer
+            deleteCompletedTodos={this.deleteCompletedTodos.bind(this)}
+          />
         </section>
       </section>
     );
