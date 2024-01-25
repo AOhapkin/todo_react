@@ -46,6 +46,9 @@ export default class App extends Component {
 
   render() {
     console.log(this.state.todoData);
+    const activeTodosCounter = this.state.todoData.filter((todoItem) => {
+      return todoItem.active;
+    }).length;
     return (
       <section className="todoapp">
         <NewTaskForm />
@@ -57,6 +60,7 @@ export default class App extends Component {
           />
           <Footer
             deleteCompletedTodos={this.deleteCompletedTodos.bind(this)}
+            activeTodosCounter={activeTodosCounter}
           />
         </section>
       </section>
