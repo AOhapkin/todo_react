@@ -8,10 +8,8 @@ export default class Task extends Component {
   }
 
   render() {
-    const { description, created, id, active } = this.props;
-
-    console.log(active)
-
+    const { changeTodoItemState, todo } = this.props;
+    const {description, id, active, created} = todo;
     let currentClassName = 'active';
 
     if (!active) {
@@ -21,7 +19,12 @@ export default class Task extends Component {
     return (
       <li className={currentClassName}>
         <div className="view">
-          <input className="toggle" type="checkbox" />
+          <input
+            id={id}
+            className="toggle"
+            type="checkbox"
+            checked={!active}
+            onChange={() => changeTodoItemState(id)} />
           <label>
             <span className="description">{description}</span>
             <span className="created">{created}</span>
