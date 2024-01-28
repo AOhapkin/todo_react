@@ -8,7 +8,7 @@ export default class Task extends Component {
   }
 
   render() {
-    const { changeTodoItemState, deleteTodoItem, todo } = this.props;
+    const { onToggleDone, deleteTodoItem, todo } = this.props;
     const {description, id, active, created} = todo;
     let currentClassName = 'active';
 
@@ -24,7 +24,7 @@ export default class Task extends Component {
             className="toggle"
             type="checkbox"
             checked={!active}
-            onChange={() => changeTodoItemState(id)} />
+            onChange={() => onToggleDone(id)} />
           <label>
             <span className="description">{description}</span>
             <span className="created">{created}</span>

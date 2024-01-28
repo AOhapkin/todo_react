@@ -17,15 +17,26 @@ export default class App extends Component {
     }
   }
 
-  changeTodoItemState(id) {
-    this.setState((state) => ({
-      todoData: state.todoData.map((todoItem) => {
-        if (todoItem.id === id) {
-          todoItem.active = !todoItem.active;
-        }
-        return todoItem;
-      })
-    }));
+  toggleItemProperty(arr, id, propName) {
+    const idx = arr.findIndex((item) => item.id === id);
+    const oldItem = arr[idx];
+    const newItem = {...oldItem,
+      [propName]: !oldItem[propName]};
+    
+    return [
+      ...arr.slice(0, idx),
+      newItem,
+      ...arr.slice(idx + 1)
+    ];
+  }
+
+  onToggleDone(id) {
+    console.log('here')
+    this.setState(({todoData}) => {
+      return {
+        todoData: this.toggleItemProperty(todoData, id, 'active')
+      }
+    });
   }
 
   deleteTodoItem(id) {
@@ -45,7 +56,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.todoData);
     const activeTodosCounter = this.state.todoData.filter((todoItem) => {
       return todoItem.active;
     }).length;
@@ -55,7 +65,7 @@ export default class App extends Component {
         <section className="main">
           <TaskList 
             tasks={this.state.todoData}
-            changeTodoItemState={this.changeTodoItemState.bind(this)}
+            onToggleDone={this.onToggleDone.bind(this)}
             deleteTodoItem={this.deleteTodoItem.bind(this)}
           />
           <Footer
