@@ -39,6 +39,10 @@ export default class App extends Component {
     });
   }
 
+  addTodoItem(todoText) {
+    console.log("add item: ", todoText);
+  }
+
   deleteTodoItem(id) {
     this.setState((state) => ({
       todoData: state.todoData.filter((todoItem) => {
@@ -61,7 +65,9 @@ export default class App extends Component {
     }).length;
     return (
       <section className="todoapp">
-        <NewTaskForm />
+        <NewTaskForm
+          addTodoItem={this.addTodoItem.bind(this)}
+        />
         <section className="main">
           <TaskList 
             tasks={this.state.todoData}
