@@ -13,7 +13,8 @@ export default class App extends Component {
         {description: 'sleep', created: 'created 7 min ago', id: 2, active: false},
         {description: 'play', created: 'created 66 min ago', id: 3, active: false},
         {description: 'repeat', created: 'created 33 min ago', id: 4, active: true}
-      ]
+      ],
+      filter: 'All'
     }
   }
 
@@ -40,7 +41,16 @@ export default class App extends Component {
   }
 
   addTodoItem(todoText) {
-    console.log("add item: ", todoText);
+    const newTodoItem = {
+      description: todoText,
+      created: 'created 0 min ago',
+      id: this.state.todoData.length + 1,
+      active: true
+    }
+    console.log("add item: ", newTodoItem);
+    this.setState((state) => ({
+      todoData: [...state.todoData, newTodoItem]
+    }));
   }
 
   deleteTodoItem(id) {
@@ -59,6 +69,13 @@ export default class App extends Component {
     }));
   }
 
+  changeCurrentFilter(filterName) {
+    console.log(filterName);
+    this.setState({
+      filter: filterName
+    });
+  }
+
   render() {
     const activeTodosCounter = this.state.todoData.filter((todoItem) => {
       return todoItem.active;
@@ -75,6 +92,8 @@ export default class App extends Component {
             deleteTodoItem={this.deleteTodoItem.bind(this)}
           />
           <Footer
+            changeCurrentFilter={this.changeCurrentFilter.bind(this)}
+            currentFilter={this.state.filter}
             deleteCompletedTodos={this.deleteCompletedTodos.bind(this)}
             activeTodosCounter={activeTodosCounter}
           />
