@@ -32,7 +32,6 @@ export default class App extends Component {
   }
 
   onToggleDone(id) {
-    console.log('here')
     this.setState(({todoData}) => {
       return {
         todoData: this.toggleItemProperty(todoData, id, 'active')
@@ -76,6 +75,17 @@ export default class App extends Component {
     });
   }
 
+  showFilteredTasks(filterName) {
+    console.log(filterName);
+    if (filterName === 'Active') {
+      return this.state.todoData.filter((todoItem) => todoItem.active)
+    } else if (filterName === 'Completed') {
+      return this.state.todoData.filter((todoItem) => !todoItem.active)
+    } else {
+      return this.state.todoData;
+    }
+  }
+
   render() {
     const activeTodosCounter = this.state.todoData.filter((todoItem) => {
       return todoItem.active;
@@ -87,7 +97,7 @@ export default class App extends Component {
         />
         <section className="main">
           <TaskList 
-            tasks={this.state.todoData}
+            tasks={this.showFilteredTasks(this.state.filter)}
             onToggleDone={this.onToggleDone.bind(this)}
             deleteTodoItem={this.deleteTodoItem.bind(this)}
           />
