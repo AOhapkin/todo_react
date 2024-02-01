@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {formatDistanceToNow} from "date-fns";
+
 import "./Task.css";
 
 export default class Task extends Component {
@@ -27,7 +29,7 @@ export default class Task extends Component {
             onChange={() => onToggleDone(id)} />
           <label>
             <span className="description">{description}</span>
-            <span className="created">{created}</span>
+            <span className="created">{formatDistanceToNow(created, {includeSeconds: true})}</span>
           </label>
           <button className="icon icon-edit"></button>
           <button className="icon icon-destroy" onClick={() => deleteTodoItem(id)}></button>

@@ -9,10 +9,10 @@ export default class App extends Component {
     super();
     this.state = {
       todoData: [
-        {description: 'eat', created: 'created 5 min ago', id: 1, active: true},
-        {description: 'sleep', created: 'created 7 min ago', id: 2, active: false},
-        {description: 'play', created: 'created 66 min ago', id: 3, active: false},
-        {description: 'repeat', created: 'created 33 min ago', id: 4, active: true}
+        // {description: 'eat', created: 'created 5 min ago', id: 1, active: true},
+        // {description: 'sleep', created: 'created 7 min ago', id: 2, active: false},
+        // {description: 'play', created: 'created 66 min ago', id: 3, active: false},
+        // {description: 'repeat', created: 'created 33 min ago', id: 4, active: true}
       ],
       filter: 'All'
     }
@@ -42,11 +42,10 @@ export default class App extends Component {
   addTodoItem(todoText) {
     const newTodoItem = {
       description: todoText,
-      created: 'created 0 min ago',
+      created: new Date(),
       id: this.state.todoData.length + 1,
       active: true
     }
-    console.log("add item: ", newTodoItem);
     this.setState((state) => ({
       todoData: [...state.todoData, newTodoItem]
     }));
