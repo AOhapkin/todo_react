@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import "./NewTaskForm.css";
 
 export default class NewTaskForm extends Component {
@@ -44,3 +45,7 @@ export default class NewTaskForm extends Component {
     )
   }
 }
+
+NewTaskForm.propTypes = {
+  addTodoItem: PropTypes.func.isRequired,
+};

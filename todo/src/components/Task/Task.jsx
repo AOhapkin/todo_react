@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {formatDistanceToNow} from "date-fns";
+import PropTypes from "prop-types"
 
 import "./Task.css";
 
@@ -37,4 +38,19 @@ export default class Task extends Component {
       </li>
     )
   }
+}
+
+Task.propTypes = {
+  onToggleDone: PropTypes.func.isRequired,
+  deleteTodoItem: PropTypes.func.isRequired,
+  todo: PropTypes.shape({
+    description: PropTypes.string,
+    id: PropTypes.number,
+    active: PropTypes.bool,
+    created: PropTypes.instanceOf(Date)
+  })
+}
+
+Task.defaultProps = {
+  todo: {}
 }
