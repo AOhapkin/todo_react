@@ -1,8 +1,8 @@
-import React, {Component} from "react";
-import "./App.css";
-import NewTaskForm from "./components/NewTaskForm/NewTaskForm";
-import TaskList from "./components/TaskList/TaskList"
-import Footer from "./components/Footer/Footer"
+import React, {Component} from 'react';
+import './App.css';
+import NewTaskForm from './components/NewTaskForm/NewTaskForm';
+import TaskList from './components/TaskList/TaskList'
+import Footer from './components/Footer/Footer'
 
 export default class App extends Component {
   constructor() {
@@ -23,7 +23,7 @@ export default class App extends Component {
     const oldItem = arr[idx];
     const newItem = {...oldItem,
       [propName]: !oldItem[propName]};
-    
+
     return [
       ...arr.slice(0, idx),
       newItem,
@@ -95,7 +95,7 @@ export default class App extends Component {
           addTodoItem={this.addTodoItem.bind(this)}
         />
         <section className="main">
-          <TaskList 
+          <TaskList
             tasks={this.showFilteredTasks(this.state.filter)}
             onToggleDone={this.onToggleDone.bind(this)}
             deleteTodoItem={this.deleteTodoItem.bind(this)}

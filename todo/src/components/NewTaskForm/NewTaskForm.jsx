@@ -27,13 +27,13 @@ export default class NewTaskForm extends Component {
       value: ''
     })
   }
-  
+
   render() {
     const {value} = this.state;
     return (
       <header>
         <form onSubmit={this.onFormSubmit}>
-          <input 
+          <input
             type="text"
             className="new-todo"
             placeholder="What needs to be done?"
