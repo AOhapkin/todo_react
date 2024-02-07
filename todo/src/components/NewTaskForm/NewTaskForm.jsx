@@ -1,35 +1,35 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
-import "./NewTaskForm.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './NewTaskForm.css';
 
 export default class NewTaskForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
-  onInputValueChange = (e) => {
+  onInputValueChange(e) {
     this.setState({
-      value: e.target.value
-    })
+      value: e.target.value,
+    });
   }
 
-  onFormSubmit = (e) => {
+  onFormSubmit(e) {
     e.preventDefault();
-    const {value} = this.state;
-    const {addTodoItem} = this.props;
+    const { value } = this.state;
+    const { addTodoItem } = this.props;
     if (value.trim()) {
       addTodoItem(value);
     }
     this.setState({
-      value: ''
-    })
+      value: '',
+    });
   }
 
   render() {
-    const {value} = this.state;
+    const { value } = this.state;
     return (
       <header>
         <form onSubmit={this.onFormSubmit}>
@@ -42,7 +42,7 @@ export default class NewTaskForm extends Component {
           />
         </form>
       </header>
-    )
+    );
   }
 }
 
