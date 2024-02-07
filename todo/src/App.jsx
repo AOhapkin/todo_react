@@ -1,41 +1,37 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import NewTaskForm from './components/NewTaskForm/NewTaskForm';
-import TaskList from './components/TaskList/TaskList'
-import Footer from './components/Footer/Footer'
+import TaskList from './components/TaskList/TaskList';
+import Footer from './components/Footer/Footer';
 
 export default class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       todoData: [
-        // {description: 'eat', created: 'created 5 min ago', id: 1, active: true},
-        // {description: 'sleep', created: 'created 7 min ago', id: 2, active: false},
-        // {description: 'play', created: 'created 66 min ago', id: 3, active: false},
-        // {description: 'repeat', created: 'created 33 min ago', id: 4, active: true}
+        // {description: 'eat', created: 'created 5 min ago', id: 1, active: true, editing: false},
+        // {description: 'sleep', created: 'created 7 min ago', id: 2, active: false, editing: false},
+        // {description: 'play', created: 'created 66 min ago', id: 3, active: false, editing: false},
+        // {description: 'repeat', created: 'created 33 min ago', id: 4, active: true, editing: false}
       ],
-      filter: 'All'
-    }
+      filter: 'All',
+    };
   }
 
+  // eslint-disable-next-line class-methods-use-this,react/sort-comp
   toggleItemProperty(arr, id, propName) {
     const idx = arr.findIndex((item) => item.id === id);
     const oldItem = arr[idx];
-    const newItem = {...oldItem,
-      [propName]: !oldItem[propName]};
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
 
-    return [
-      ...arr.slice(0, idx),
-      newItem,
-      ...arr.slice(idx + 1)
-    ];
+    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
   }
 
   onToggleDone(id) {
-    this.setState(({todoData}) => {
+    this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleItemProperty(todoData, id, 'active')
-      }
+        todoData: this.toggleItemProperty(todoData, id, 'active'),
+      };
     });
   }
 
@@ -44,10 +40,10 @@ export default class App extends Component {
       description: todoText,
       created: new Date(),
       id: this.state.todoData.length + 1,
-      active: true
-    }
+      active: true,
+    };
     this.setState((state) => ({
-      todoData: [...state.todoData, newTodoItem]
+      todoData: [...state.todoData, newTodoItem],
     }));
   }
 
@@ -55,7 +51,7 @@ export default class App extends Component {
     this.setState((state) => ({
       todoData: state.todoData.filter((todoItem) => {
         return todoItem.id !== id;
-      })
+      }),
     }));
   }
 
@@ -63,26 +59,25 @@ export default class App extends Component {
     this.setState((state) => ({
       todoData: state.todoData.filter((todoItem) => {
         return todoItem.active;
-      })
+      }),
     }));
   }
 
   changeCurrentFilter(filterName) {
-    console.log(filterName);
     this.setState({
-      filter: filterName
+      filter: filterName,
     });
   }
 
   showFilteredTasks(filterName) {
-    console.log(filterName);
     if (filterName === 'Active') {
-      return this.state.todoData.filter((todoItem) => todoItem.active)
-    } else if (filterName === 'Completed') {
-      return this.state.todoData.filter((todoItem) => !todoItem.active)
-    } else {
-      return this.state.todoData;
+      return this.state.todoData.filter((todoItem) => todoItem.active);
     }
+    if (filterName === 'Completed') {
+      return this.state.todoData.filter((todoItem) => !todoItem.active);
+    }
+    return this.state.todoData;
+
   }
 
   render() {
@@ -91,9 +86,7 @@ export default class App extends Component {
     }).length;
     return (
       <section className="todoapp">
-        <NewTaskForm
-          addTodoItem={this.addTodoItem.bind(this)}
-        />
+        <NewTaskForm addTodoItem={this.addTodoItem.bind(this)} />
         <section className="main">
           <TaskList
             tasks={this.showFilteredTasks(this.state.filter)}

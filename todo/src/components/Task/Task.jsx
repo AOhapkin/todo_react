@@ -1,18 +1,18 @@
-import React, {Component} from "react";
-import {formatDistanceToNow} from "date-fns";
-import PropTypes from "prop-types"
+import React, { Component } from 'react';
+import { formatDistanceToNow } from 'date-fns';
+import PropTypes from 'prop-types';
 
-import "./Task.css";
+import './Task.css';
 
 export default class Task extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.props = props;
   }
 
   render() {
     const { onToggleDone, deleteTodoItem, todo } = this.props;
-    const {description, id, active, created} = todo;
+    const { description, id, active, created } = todo;
     let currentClassName = 'active';
 
     if (!active) {
@@ -27,16 +27,19 @@ export default class Task extends Component {
             className="toggle"
             type="checkbox"
             checked={!active}
-            onChange={() => onToggleDone(id)} />
+            onChange={() => onToggleDone(id)}
+          />
           <label>
             <span className="description">{description}</span>
-            <span className="created">{formatDistanceToNow(created, {includeSeconds: true})}</span>
+            <span className="created">
+              {formatDistanceToNow(created, { includeSeconds: true })}
+            </span>
           </label>
           <button className="icon icon-edit"></button>
           <button className="icon icon-destroy" onClick={() => deleteTodoItem(id)}></button>
         </div>
       </li>
-    )
+    );
   }
 }
 
@@ -47,10 +50,10 @@ Task.propTypes = {
     description: PropTypes.string,
     id: PropTypes.number,
     active: PropTypes.bool,
-    created: PropTypes.instanceOf(Date)
-  })
-}
+    created: PropTypes.instanceOf(Date),
+  }),
+};
 
 Task.defaultProps = {
-  todo: {}
-}
+  todo: {},
+};

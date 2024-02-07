@@ -3,7 +3,9 @@
     "browser": true,
     "es2021": true
   },
+  "ignorePatterns": ["node_modules", "dist", "build"],
   "extends": [
+    "airbnb",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
@@ -16,12 +18,16 @@
     },
     "sourceType": "module"
   },
+  "plugins": ["react", "prettier", "import"],
   "rules": {
     "semi": "warn",
     "no-console": "error",
     "eol-last": "error",
     "quotes": ["error", "single"],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "prettier/prettier": "warn",
+    "import/no-unresolved": [2, { "caseSensitive": false }]
   },
   "settings": {
     "import/resolver": {
