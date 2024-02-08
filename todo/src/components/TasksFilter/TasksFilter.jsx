@@ -1,13 +1,14 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
-import "./TasksFilter.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './TasksFilter.css';
 
 export default class TasksFilter extends Component {
   render() {
-    const {currentFilter, changeCurrentFilter} = this.props;
+    const { currentFilter, changeCurrentFilter } = this.props;
     return (
       <ul className="filters">
         <li>
+          {/* eslint-disable-next-line react/button-has-type */}
           <button
             onClick={() => changeCurrentFilter('All')}
             className={currentFilter === 'All' ? 'selected' : null}
@@ -16,6 +17,7 @@ export default class TasksFilter extends Component {
           </button>
         </li>
         <li>
+          {/* eslint-disable-next-line react/button-has-type */}
           <button
             onClick={() => changeCurrentFilter('Active')}
             className={currentFilter === 'Active' ? 'selected' : null}
@@ -32,15 +34,15 @@ export default class TasksFilter extends Component {
           </button>
         </li>
       </ul>
-    )
+    );
   }
 }
 
 TasksFilter.propTypes = {
   currentFilter: PropTypes.string,
-  changeCurrentFilter: PropTypes.func.isRequired
-}
+  changeCurrentFilter: PropTypes.func.isRequired,
+};
 
 TasksFilter.defaultProps = {
-  currentFilter: "All"
-}
+  currentFilter: 'All',
+};

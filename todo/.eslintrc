@@ -1,16 +1,17 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es6": true,
+    "node": true
   },
-  "ignorePatterns": ["node_modules", "dist", "build"],
   "extends": [
-    "airbnb",
+    "airbnb/base",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -21,15 +22,16 @@
   "plugins": ["react", "prettier", "import"],
   "rules": {
     "semi": "warn",
-    "no-console": "error",
-    "eol-last": "error",
     "quotes": ["error", "single"],
+    "max-len": ["error", 150],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "prettier/prettier": "warn",
     "import/no-unresolved": [2, { "caseSensitive": false }]
   },
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx"]
