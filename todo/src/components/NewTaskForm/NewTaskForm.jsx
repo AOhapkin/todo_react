@@ -32,13 +32,13 @@ export default class NewTaskForm extends Component {
     const { value } = this.state;
     return (
       <header>
-        <form onSubmit={this.onFormSubmit}>
+        <form onSubmit={this.onFormSubmit.bind(this)}>
           <input
             type="text"
             className="new-todo"
             placeholder="What needs to be done?"
             value={value}
-            onChange={this.onInputValueChange}
+            onChange={this.onInputValueChange.bind(this)}
           />
         </form>
       </header>

@@ -28,11 +28,9 @@ export default class App extends Component {
   }
 
   onToggleDone(id) {
-    this.setState(({ todoData }) => {
-      return {
+    this.setState(({ todoData }) => ({
         todoData: this.toggleItemProperty(todoData, id, 'active'),
-      };
-    });
+      }));
   }
 
   addTodoItem(todoText) {
@@ -49,17 +47,13 @@ export default class App extends Component {
 
   deleteTodoItem(id) {
     this.setState((state) => ({
-      todoData: state.todoData.filter((todoItem) => {
-        return todoItem.id !== id;
-      }),
+      todoData: state.todoData.filter((todoItem) => todoItem.id !== id),
     }));
   }
 
   deleteCompletedTodos() {
     this.setState((state) => ({
-      todoData: state.todoData.filter((todoItem) => {
-        return todoItem.active;
-      }),
+      todoData: state.todoData.filter((todoItem) => todoItem.active),
     }));
   }
 
@@ -81,9 +75,7 @@ export default class App extends Component {
   }
 
   render() {
-    const activeTodosCounter = this.state.todoData.filter((todoItem) => {
-      return todoItem.active;
-    }).length;
+    const activeTodosCounter = this.state.todoData.filter((todoItem) => todoItem.active).length;
     return (
       <section className="todoapp">
         <NewTaskForm addTodoItem={this.addTodoItem.bind(this)} />
