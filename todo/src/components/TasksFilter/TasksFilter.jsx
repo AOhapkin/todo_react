@@ -8,7 +8,6 @@ export default class TasksFilter extends Component {
     return (
       <ul className="filters">
         <li>
-          {/* eslint-disable-next-line react/button-has-type */}
           <button
             onClick={() => changeCurrentFilter('All')}
             className={currentFilter === 'All' ? 'selected' : null}
@@ -17,7 +16,6 @@ export default class TasksFilter extends Component {
           </button>
         </li>
         <li>
-          {/* eslint-disable-next-line react/button-has-type */}
           <button
             onClick={() => changeCurrentFilter('Active')}
             className={currentFilter === 'Active' ? 'selected' : null}
