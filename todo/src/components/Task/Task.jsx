@@ -35,7 +35,6 @@ export default class Task extends Component {
               {formatDistanceToNow(created, { includeSeconds: true })}
             </span>
           </label>
-          <button className="icon icon-edit"></button>
           <button className="icon icon-destroy" onClick={() => deleteTodoItem(id)}></button>
         </div>
       </li>
