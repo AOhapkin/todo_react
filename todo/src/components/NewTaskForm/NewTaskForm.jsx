@@ -1,49 +1,50 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import './NewTaskForm.css';
 
-export default class NewTaskForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
+export default function NewTaskForm({ addTodoItem }) {
+  const [value, setValue] = useState('');
+
+
+  const onInputValueChange = (e) => {
+    setValue(e.target.value);
   }
 
-  onInputValueChange(e) {
-    this.setState({
-      value: e.target.value,
-    });
-  }
-
-  onFormSubmit(e) {
+  const onFormSubmit = (e) => {
     e.preventDefault();
-    const { value } = this.state;
-    const { addTodoItem } = this.props;
     if (value.trim()) {
       addTodoItem(value);
+      setValue('');
     }
-    this.setState({
-      value: '',
-    });
   }
 
-  render() {
-    const { value } = this.state;
-    return (
-      <header>
-        <form onSubmit={this.onFormSubmit.bind(this)}>
-          <input
-            type="text"
-            className="new-todo"
-            placeholder="What needs to be done?"
-            value={value}
-            onChange={this.onInputValueChange.bind(this)}
-          />
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header>
+      <h1>Todos</h1>
+      <form onSubmit={onFormSubmit}>
+        <input
+          type="text"
+          className="new-todo"
+          placeholder="What needs to be done?"
+          value={value}
+          onChange={onInputValueChange}
+        />
+        {/* <input 
+          type="number"
+          className="new-todo-form__timer"
+          placeholder="Min"
+          autofocus
+        />
+        <input 
+          type="number"
+          className="new-todo-form__timer"
+          placeholder="Sec"
+          autofocus
+        /> */}
+      </form>
+    </header>
+  );
 }
 
 NewTaskForm.propTypes = {

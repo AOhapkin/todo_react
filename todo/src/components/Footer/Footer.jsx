@@ -3,25 +3,16 @@ import PropTypes from 'prop-types';
 import TasksFilter from '../TasksFilter';
 import './Footer.css';
 
-export default class Footer extends Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
-
-  render() {
-    const { deleteCompletedTodos, activeTodosCounter, changeCurrentFilter, currentFilter } =
-      this.props;
-    return (
-      <footer className="footer">
-        <span className="todo-count">{activeTodosCounter} items left</span>
-        <TasksFilter changeCurrentFilter={changeCurrentFilter} currentFilter={currentFilter} />
-        <button type="button" className="clear-completed" onClick={deleteCompletedTodos}>
-          Clear completed
-        </button>
-      </footer>
-    );
-  }
+export default function Footer({ deleteCompletedTodos, activeTodosCounter, changeCurrentFilter, currentFilter }) {
+  return (
+    <footer className="footer">
+      <span className="todo-count">{activeTodosCounter} items left</span>
+      <TasksFilter changeCurrentFilter={changeCurrentFilter} currentFilter={currentFilter} />
+      <button type="button" className="clear-completed" onClick={deleteCompletedTodos}>
+        Clear completed
+      </button>
+    </footer>
+  );
 }
 
 Footer.propTypes = {

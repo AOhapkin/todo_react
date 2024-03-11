@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Task from '../Task';
 import './TaskList.css';
 
-function TaskList(props) {
-  const { tasks, onToggleDone, deleteTodoItem } = props;
+function TaskList({ tasks, onToggleDone, deleteTodoItem }) {
   const elements = tasks.map((item) => (
     <Task key={item.id} todo={item} onToggleDone={onToggleDone} deleteTodoItem={deleteTodoItem} />
   ));

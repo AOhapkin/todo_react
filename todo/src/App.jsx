@@ -1,25 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './App.css';
+
 import NewTaskForm from './components/NewTaskForm/NewTaskForm';
 import TaskList from './components/TaskList/TaskList';
 import Footer from './components/Footer/Footer';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      todoData: [
-        // {description: 'eat', created: 'created 5 min ago', id: 1, active: true, editing: false},
-        // {description: 'sleep', created: 'created 7 min ago', id: 2, active: false, editing: false},
-        // {description: 'play', created: 'created 66 min ago', id: 3, active: false, editing: false},
-        // {description: 'repeat', created: 'created 33 min ago', id: 4, active: true, editing: false}
-      ],
-      filter: 'All',
-    };
-  }
+export default function App() {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     todoData: [
+  //       // {description: 'eat', created: 'created 5 min ago', id: 1, active: true, editing: false},
+  //       // {description: 'sleep', created: 'created 7 min ago', id: 2, active: false, editing: false},
+  //       // {description: 'play', created: 'created 66 min ago', id: 3, active: false, editing: false},
+  //       // {description: 'repeat', created: 'created 33 min ago', id: 4, active: true, editing: false}
+  //     ],
+  //     filter: 'All',
+  //   };
+  // }
+  const [todoData, setTodoData] = useState([]);
+  const [filter, setFilter] = useState('All');
 
-  // eslint-disable-next-line class-methods-use-this,react/sort-comp
-  toggleItemProperty(arr, id, propName) {
+  const toggleItemProperty = (arr, id, propName) => {
     const idx = arr.findIndex((item) => item.id === id);
     const oldItem = arr[idx];
     const newItem = { ...oldItem, [propName]: !oldItem[propName] };
@@ -27,13 +29,13 @@ export default class App extends Component {
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
   }
 
-  onToggleDone(id) {
+  const onToggleDone = (id) => {
     this.setState(({ todoData }) => ({
         todoData: this.toggleItemProperty(todoData, id, 'active'),
       }));
   }
 
-  addTodoItem(todoText) {
+  const addTodoItem = (todoText) => {
     const newTodoItem = {
       description: todoText,
       created: new Date(),
@@ -45,25 +47,25 @@ export default class App extends Component {
     }));
   }
 
-  deleteTodoItem(id) {
+  const deleteTodoItem = (id) => {
     this.setState((state) => ({
       todoData: state.todoData.filter((todoItem) => todoItem.id !== id),
     }));
   }
 
-  deleteCompletedTodos() {
+  const deleteCompletedTodos = () => {
     this.setState((state) => ({
       todoData: state.todoData.filter((todoItem) => todoItem.active),
     }));
   }
 
-  changeCurrentFilter(filterName) {
+  const changeCurrentFilter = (filterName) => {
     this.setState({
       filter: filterName,
     });
   }
 
-  showFilteredTasks(filterName) {
+  const showFilteredTasks = (filterName) => {
     if (filterName === 'Active') {
       return this.state.todoData.filter((todoItem) => todoItem.active);
     }
@@ -74,25 +76,24 @@ export default class App extends Component {
 
   }
 
-  render() {
-    const activeTodosCounter = this.state.todoData.filter((todoItem) => todoItem.active).length;
-    return (
-      <section className="todoapp">
-        <NewTaskForm addTodoItem={this.addTodoItem.bind(this)} />
-        <section className="main">
-          <TaskList
-            tasks={this.showFilteredTasks(this.state.filter)}
-            onToggleDone={this.onToggleDone.bind(this)}
-            deleteTodoItem={this.deleteTodoItem.bind(this)}
-          />
-          <Footer
-            changeCurrentFilter={this.changeCurrentFilter.bind(this)}
-            currentFilter={this.state.filter}
-            deleteCompletedTodos={this.deleteCompletedTodos.bind(this)}
-            activeTodosCounter={activeTodosCounter}
-          />
-        </section>
+  const activeTodosCounter = this.state.todoData.filter((todoItem) => todoItem.active).length;
+  
+  return (
+    <section className="todoapp">
+      <NewTaskForm addTodoItem={this.addTodoItem.bind(this)} />
+      <section className="main">
+        <TaskList
+          tasks={this.showFilteredTasks(this.state.filter)}
+          onToggleDone={this.onToggleDone.bind(this)}
+          deleteTodoItem={this.deleteTodoItem.bind(this)}
+        />
+        <Footer
+          changeCurrentFilter={this.changeCurrentFilter.bind(this)}
+          currentFilter={this.state.filter}
+          deleteCompletedTodos={this.deleteCompletedTodos.bind(this)}
+          activeTodosCounter={activeTodosCounter}
+        />
       </section>
-    );
-  }
+    </section>
+  );
 }
