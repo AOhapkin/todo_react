@@ -1,52 +1,75 @@
-import { useState } from 'react';
+import { useS } from 'react';
 import PropTypes from 'prop-types';
 
 import './NewTaskForm.css';
 
-export default function NewTaskForm({ addTodoItem }) {
-  const [value, setValue] = useState('');
+export default function NewTaskForm({ addItemToList }) {
+  const [label, setLabel] = useState('')
+  const [minute, setMinute] = useState('')
+  const [sec, setSec] = useState('')
 
-
-  const onInputValueChange = (e) => {
-    setValue(e.target.value);
+  const onChangeLabel = (evt) => {
+    setLabel(evt.target.value)
   }
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    if (value.trim()) {
-      addTodoItem(value);
-      setValue('');
+  const onChangeMinutes = (evt) => {
+    setMinute(Math.abs(evt.target.value))
+  }
+
+  const onChangeSeconds = (evt) => {
+    setSec(Math.abs(evt.target.value))
+  }
+
+  const onSubmit = (evt) => {
+    evt.preventDefault()
+    if (label.trim() !== '') {
+      addItemToList(label, minute, sec)
+      setLabel('')
+      setMinute('')
+      setSec('')
     }
   }
 
   return (
-    <header>
+    <header className="header">
       <h1>Todos</h1>
-      <form onSubmit={onFormSubmit}>
+      <form action="#" className="todo-form">
         <input
           type="text"
-          className="new-todo"
+          className="new-todo new-todo__text"
           placeholder="What needs to be done?"
-          value={value}
-          onChange={onInputValueChange}
+          value={label}
+          onChange={onChangeLabel}
+          onKeyDown={(event) => (event.key === 'Enter' ? onSubmit(event) : null)}
         />
-        {/* <input 
+        <input
           type="number"
-          className="new-todo-form__timer"
+          className="new-todo new-todo__num"
           placeholder="Min"
-          autofocus
+          min={0}
+          value={minute}
+          onChange={onChangeMinutes}
+          onKeyDown={(event) => (event.key === 'Enter' ? onSubmit(event) : null)}
         />
-        <input 
+        <input
           type="number"
-          className="new-todo-form__timer"
+          className="new-todo new-todo__num"
           placeholder="Sec"
-          autofocus
-        /> */}
+          min={0}
+          max="59"
+          value={sec}
+          onChange={onChangeSeconds}
+          onKeyDown={(event) => (event.key === 'Enter' ? onSubmit(event) : null)}
+        />
       </form>
     </header>
-  );
+  )
 }
 
 NewTaskForm.propTypes = {
   addTodoItem: PropTypes.func.isRequired,
 };
+
+NewTaskForm.defaultProps = {
+  addItemToList: () => {},
+}
