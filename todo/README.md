@@ -1,9 +1,6 @@
 
-# Versel 👉 [https://todo-six-ochre.vercel.app/](https://todo-six-ochre.vercel.app/)
+# Versel (без таймера) 👉 [https://todo-six-ochre.vercel.app/](https://todo-six-ochre.vercel.app/)
 
+---
 
-///// версия с таймером
-
-- оживить таймер
-- исправить форму добавления новой таски
-- добавить новые стили из задания
+# Versel (с таймером ⏲) 👉 [https://todo-timer-weld.vercel.app/](https://todo-timer-weld.vercel.app/)
