@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import './Task.css';
 
@@ -16,35 +16,35 @@ export default function Task({
   startTimer,
   stopTimer,
 }) {
-  const [editingValue, setEditingValue] = useState(description)
+  const [editingValue, setEditingValue] = useState(description);
 
   const formatMinutes = (time) => {
-    const minutes = Math.floor(time / 60000)
-    return minutes < 10 ? `0${minutes}` : minutes
-  }
+    const minutes = Math.floor(time / 60000);
+    return minutes < 10 ? `0${minutes}` : minutes;
+  };
   const formatSeconds = (time) => {
-    const seconds = Math.floor((time % 60000) / 1000)
-    return seconds < 10 ? `0${seconds}` : seconds
-  }
+    const seconds = Math.floor((time % 60000) / 1000);
+    return seconds < 10 ? `0${seconds}` : seconds;
+  };
   const onEditingLabel = (evt) => {
-    setEditingValue(evt.target.value)
-  }
+    setEditingValue(evt.target.value);
+  };
 
   const onSubmit = (evt) => {
-    evt.preventDefault()
-    onEditingSubmit(editingValue)
-  }
+    evt.preventDefault();
+    onEditingSubmit(editingValue);
+  };
 
-  const minutes = formatMinutes(remainingTime)
-  const seconds = formatSeconds(remainingTime)
-  let descriptionClassNames = 'description'
+  const minutes = formatMinutes(remainingTime);
+  const seconds = formatSeconds(remainingTime);
+  let descriptionClassNames = 'description';
   if (done) {
-    descriptionClassNames += ' done'
+    descriptionClassNames += ' done';
   } else {
-    descriptionClassNames = 'description'
+    descriptionClassNames = 'description';
   }
 
-  const timeInWords = formatDistanceToNow(created, { includeSeconds: true })
+  const timeInWords = formatDistanceToNow(created, { includeSeconds: true });
 
   return (
     <>
@@ -78,7 +78,7 @@ export default function Task({
         onChange={onEditingLabel}
       />
     </>
-  )
+  );
 }
 
 Task.propTypes = {

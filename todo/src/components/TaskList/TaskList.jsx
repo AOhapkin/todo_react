@@ -14,9 +14,9 @@ export default function TaskList({
   stopTimer,
 }) {
   const listOfTasks = todos.map((todo) => {
-    let ListItemClasses = todo.done ? 'completed' : ''
+    let ListItemClasses = todo.done ? 'completed' : '';
     if (!todo.done && todo.editing) {
-      ListItemClasses += 'editing'
+      ListItemClasses += 'editing';
     }
 
     return (
@@ -36,10 +36,10 @@ export default function TaskList({
           id={todo.id}
         />
       </li>
-    )
-  })
+    );
+  });
 
-  return <ul className="todo-list">{listOfTasks}</ul>
+  return <ul className="todo-list">{listOfTasks}</ul>;
 }
 
 TaskList.propTypes = {
@@ -50,7 +50,7 @@ TaskList.propTypes = {
   onEditingSubmit: PropTypes.func,
   startTimer: PropTypes.func,
   stopTimer: PropTypes.func,
-}
+};
 
 TaskList.defaultProps = {
   todos: [],
@@ -60,4 +60,4 @@ TaskList.defaultProps = {
   onEditingSubmit: () => {},
   startTimer: () => {},
   stopTimer: () => {},
-}
+};

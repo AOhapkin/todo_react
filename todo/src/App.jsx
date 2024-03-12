@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { nanoid } from 'nanoid';
 
 import './App.css';
@@ -7,11 +8,10 @@ import TaskList from './components/TaskList/TaskList';
 import Footer from './components/Footer/Footer';
 
 export default function App() {
-  const [todoData, setTodoData] = useState([])
-  const [filter, setFilter] = useState('All')
+  const [todoData, setTodoData] = useState([]);
+  const [filter, setFilter] = useState('All');
 
-  const createItem = (text, minute, sec) => {
-    return {
+  const createItem = (text, minute, sec) => ({
       description: text.trim(),
       created: Date.now(),
       id: nanoid(),
@@ -20,118 +20,113 @@ export default function App() {
       countdown: false,
       remainingTime: (minute * 60 + Number(sec)) * 1000,
       timerId: null,
-    }
-  }
+    });
 
   const stopTimer = (id) => {
-    const { countdown } = todoData.find((el) => el.id === id)
+    const { countdown } = todoData.find((el) => el.id === id);
     if (countdown) {
-      const { timerId } = todoData.find((el) => el.id === id)
+      const { timerId } = todoData.find((el) => el.id === id);
       setTodoData((prevState) => {
-        const idx = prevState.findIndex((el) => el.id === id)
-        const data = [...prevState]
-        data[idx].countdown = false
-        return data
-      })
-      clearInterval(timerId)
+        const idx = prevState.findIndex((el) => el.id === id);
+        const data = [...prevState];
+        data[idx].countdown = false;
+        return data;
+      });
+      clearInterval(timerId);
     }
-  }
+  };
 
   const startTimer = (id) => {
-    const { countdown, remainingTime } = todoData.find((el) => el.id === id)
+    const { countdown, remainingTime } = todoData.find((el) => el.id === id);
     if (!countdown) {
-      const deadline = remainingTime + Date.now()
+      const deadline = remainingTime + Date.now();
       const timerId = setInterval(() => {
-        setTodoData((prevState) => {
-          return prevState.map((todoItem) => {
+        setTodoData((prevState) => prevState.map((todoItem) => {
             if (todoItem.id === id) {
-              let newRemainingTime = 0
+              let newRemainingTime = 0;
               if (todoItem.remainingTime < 1000) {
-                stopTimer(id)
+                stopTimer(id);
               } else {
-                newRemainingTime = deadline - Date.now()
+                newRemainingTime = deadline - Date.now();
               }
               return {
                 ...todoItem,
                 remainingTime: newRemainingTime,
-              }
+              };
             }
-            return todoItem
-          })
-        })
-      }, 500)
+            return todoItem;
+          }));
+      }, 500);
       setTodoData(() => {
-        const idx = todoData.findIndex((el) => el.id === id)
-        const data = [...todoData]
-        data[idx].timerId = timerId
-        data[idx].countdown = true
-        return data
-      })
+        const idx = todoData.findIndex((el) => el.id === id);
+        const data = [...todoData];
+        data[idx].timerId = timerId;
+        data[idx].countdown = true;
+        return data;
+      });
     }
-  }
+  };
 
   const deleteItem = (id) => {
-    const { timerId } = todoData.find((el) => el.id === id)
-    clearInterval(timerId)
-    setTodoData(() => {
-      return todoData.filter((el) => el.id !== id)
-    })
-  }
+    const { timerId } = todoData.find((el) => el.id === id);
+    clearInterval(timerId);
+    setTodoData(() => todoData.filter((el) => el.id !== id));
+  };
 
   const addItemToList = (text, minute, sec) => {
-    const newItem = createItem(text, minute, sec)
-    setTodoData([...todoData, newItem])
-  }
+    const newItem = createItem(text, minute, sec);
+    setTodoData([...todoData, newItem]);
+  };
 
   const toCompleted = (id) => {
     setTodoData(() => {
-      const index = todoData.findIndex((el) => el.id === id)
-      const oldItem = todoData[index]
-      const newItem = { ...oldItem, done: !oldItem.done }
-      return todoData.with(index, newItem)
-    })
-  }
+      const index = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[index];
+      const newItem = { ...oldItem, done: !oldItem.done };
+      return todoData.with(index, newItem);
+    });
+  };
 
   const toEditing = (id) => {
     setTodoData(() => {
-      const index = todoData.findIndex((el) => el.id === id)
-      const oldItem = todoData[index]
+      const index = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[index];
       if (!oldItem.done) {
-        const newItem = { ...oldItem, editing: !oldItem.editing }
-        return todoData.with(index, newItem)
+        const newItem = { ...oldItem, editing: !oldItem.editing };
+        return todoData.with(index, newItem);
       }
-      return true
-    })
-  }
+      return true;
+    });
+  };
 
   const onEditingSubmit = (id, text) => {
     setTodoData(() => {
-      const index = todoData.findIndex((el) => el.id === id)
-      const oldItem = todoData[index]
-      const newItem = { ...oldItem, description: text.trim(), editing: false }
+      const index = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[index];
+      const newItem = { ...oldItem, description: text.trim(), editing: false };
       if (text.trim() !== '') {
-        return todoData.with(index, newItem)
+        return todoData.with(index, newItem);
       }
-      return true
-    })
-  }
+      return true;
+    });
+  };
 
   const onFilterChange = (newFilter) => {
-    setFilter(newFilter)
-  }
+    setFilter(newFilter);
+  };
 
   const deleteAllDone = () => {
-    setTodoData(todoData.filter((todo) => !todo.done))
-  }
+    setTodoData(todoData.filter((todo) => !todo.done));
+  };
 
-  const countOfUndone = todoData.filter((todo) => !todo.done).length
+  const countOfUndone = todoData.filter((todo) => !todo.done).length;
 
   const filteredTasks = todoData.filter((todo) => {
-    if (filter === 'All') return true
-    if (filter === 'Active') return !todo.done
-    if (filter === 'Completed') return todo.done
-    return true
-  })
+    if (filter === 'All') return true;
+    if (filter === 'Active') return !todo.done;
+    if (filter === 'Completed') return todo.done;
+    return true;
+  });
 
   return (
     <section className="todoapp">
@@ -154,5 +149,5 @@ export default function App() {
         />
       </section>
     </section>
-  )
+  );
 }

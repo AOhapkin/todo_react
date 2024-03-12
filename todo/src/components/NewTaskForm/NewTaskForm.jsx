@@ -1,34 +1,35 @@
-import { useS } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './NewTaskForm.css';
 
+// eslint-disable-next-line react/prop-types
 export default function NewTaskForm({ addItemToList }) {
-  const [label, setLabel] = useState('')
-  const [minute, setMinute] = useState('')
-  const [sec, setSec] = useState('')
+  const [label, setLabel] = useState('');
+  const [minute, setMinute] = useState('');
+  const [sec, setSec] = useState('');
 
   const onChangeLabel = (evt) => {
-    setLabel(evt.target.value)
-  }
+    setLabel(evt.target.value);
+  };
 
   const onChangeMinutes = (evt) => {
-    setMinute(Math.abs(evt.target.value))
-  }
+    setMinute(Math.abs(evt.target.value));
+  };
 
   const onChangeSeconds = (evt) => {
-    setSec(Math.abs(evt.target.value))
-  }
+    setSec(Math.abs(evt.target.value));
+  };
 
   const onSubmit = (evt) => {
-    evt.preventDefault()
+    evt.preventDefault();
     if (label.trim() !== '') {
-      addItemToList(label, minute, sec)
-      setLabel('')
-      setMinute('')
-      setSec('')
+      addItemToList(label, minute, sec);
+      setLabel('');
+      setMinute('');
+      setSec('');
     }
-  }
+  };
 
   return (
     <header className="header">
@@ -63,7 +64,7 @@ export default function NewTaskForm({ addItemToList }) {
         />
       </form>
     </header>
-  )
+  );
 }
 
 NewTaskForm.propTypes = {
@@ -72,4 +73,4 @@ NewTaskForm.propTypes = {
 
 NewTaskForm.defaultProps = {
   addItemToList: () => {},
-}
+};
