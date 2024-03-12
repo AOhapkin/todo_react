@@ -60,7 +60,7 @@ export default function Task({
           >
             {description}
           </span>
-          <span className="description timer">
+          <span className="timer">
             <button type="button" className="icon icon-play" aria-label="Play" onClick={startTimer} />
             <button type="button" className="icon icon-pause" aria-label="Pause" onClick={stopTimer} />
             {minutes}:{seconds}

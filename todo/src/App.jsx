@@ -12,15 +12,15 @@ export default function App() {
   const [filter, setFilter] = useState('All');
 
   const createItem = (text, minute, sec) => ({
-      description: text.trim(),
-      created: Date.now(),
-      id: nanoid(),
-      done: false,
-      editing: false,
-      countdown: false,
-      remainingTime: (minute * 60 + Number(sec)) * 1000,
-      timerId: null,
-    });
+    description: text.trim(),
+    created: Date.now(),
+    id: nanoid(),
+    done: false,
+    editing: false,
+    countdown: false,
+    remainingTime: (minute * 60 + Number(sec)) * 1000,
+    timerId: null,
+  });
 
   const stopTimer = (id) => {
     const { countdown } = todoData.find((el) => el.id === id);
