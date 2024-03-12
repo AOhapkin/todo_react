@@ -1,46 +1,32 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { nanoid } from 'nanoid';
+
 import './TasksFilter.css';
 
-export default class TasksFilter extends Component {
-  render() {
-    const { currentFilter, changeCurrentFilter } = this.props;
-    return (
-      <ul className="filters">
-        <li>
-          <button
-            onClick={() => changeCurrentFilter('All')}
-            className={currentFilter === 'All' ? 'selected' : null}
-          >
-            All
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => changeCurrentFilter('Active')}
-            className={currentFilter === 'Active' ? 'selected' : null}
-          >
-            Active
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => changeCurrentFilter('Completed')}
-            className={currentFilter === 'Completed' ? 'selected' : null}
-          >
-            Completed
-          </button>
-        </li>
-      </ul>
-    );
-  }
+export default function TasksFilter({ onFilterChange, filterValue }) {
+  const statuses = ['All', 'Active', 'Completed'];
+  const statusButtons = statuses.map((status) => (
+      <li key={nanoid()}>
+        <button
+          type="button"
+          className={filterValue === status ? 'selected' : null}
+          onClick={() => onFilterChange(status)}
+        >
+          {status}
+        </button>
+      </li>
+    ));
+
+  return <ul className="filters">{statusButtons}</ul>;
 }
 
 TasksFilter.propTypes = {
-  currentFilter: PropTypes.string,
-  changeCurrentFilter: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func,
+  filterValue: PropTypes.oneOf(['All', 'Active', 'Completed']),
 };
 
 TasksFilter.defaultProps = {
-  currentFilter: 'All',
+  onFilterChange: () => {},
+  filterValue: 'All',
 };

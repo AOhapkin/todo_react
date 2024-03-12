@@ -1,51 +1,76 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import './NewTaskForm.css';
 
-export default class NewTaskForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
-  }
+// eslint-disable-next-line react/prop-types
+export default function NewTaskForm({ addItemToList }) {
+  const [label, setLabel] = useState('');
+  const [minute, setMinute] = useState('');
+  const [sec, setSec] = useState('');
 
-  onInputValueChange(e) {
-    this.setState({
-      value: e.target.value,
-    });
-  }
+  const onChangeLabel = (evt) => {
+    setLabel(evt.target.value);
+  };
 
-  onFormSubmit(e) {
-    e.preventDefault();
-    const { value } = this.state;
-    const { addTodoItem } = this.props;
-    if (value.trim()) {
-      addTodoItem(value);
+  const onChangeMinutes = (evt) => {
+    setMinute(Math.abs(evt.target.value));
+  };
+
+  const onChangeSeconds = (evt) => {
+    setSec(Math.abs(evt.target.value));
+  };
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    if (label.trim() !== '') {
+      addItemToList(label, minute, sec);
+      setLabel('');
+      setMinute('');
+      setSec('');
     }
-    this.setState({
-      value: '',
-    });
-  }
+  };
 
-  render() {
-    const { value } = this.state;
-    return (
-      <header>
-        <form onSubmit={this.onFormSubmit.bind(this)}>
-          <input
-            type="text"
-            className="new-todo"
-            placeholder="What needs to be done?"
-            value={value}
-            onChange={this.onInputValueChange.bind(this)}
-          />
-        </form>
-      </header>
-    );
-  }
+  return (
+    <header className="header">
+      <h1>Todos</h1>
+      <form action="#" className="todo-form">
+        <input
+          type="text"
+          className="new-todo new-todo__text"
+          placeholder="What needs to be done?"
+          value={label}
+          onChange={onChangeLabel}
+          onKeyDown={(event) => (event.key === 'Enter' ? onSubmit(event) : null)}
+        />
+        <input
+          type="number"
+          className="new-todo new-todo__num"
+          placeholder="Min"
+          min={0}
+          value={minute}
+          onChange={onChangeMinutes}
+          onKeyDown={(event) => (event.key === 'Enter' ? onSubmit(event) : null)}
+        />
+        <input
+          type="number"
+          className="new-todo new-todo__num"
+          placeholder="Sec"
+          min={0}
+          max="59"
+          value={sec}
+          onChange={onChangeSeconds}
+          onKeyDown={(event) => (event.key === 'Enter' ? onSubmit(event) : null)}
+        />
+      </form>
+    </header>
+  );
 }
 
 NewTaskForm.propTypes = {
   addTodoItem: PropTypes.func.isRequired,
+};
+
+NewTaskForm.defaultProps = {
+  addItemToList: () => {},
 };
